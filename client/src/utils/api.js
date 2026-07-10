@@ -2,7 +2,8 @@
  * API utility — handles all HTTP communication with the backend.
  */
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.BACKEND_URL || '/api';
+
 
 /**
  * Get or create an anonymous user ID (persisted in localStorage).
