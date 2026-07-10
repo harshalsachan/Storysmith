@@ -1,0 +1,26 @@
+{
+  "name": "ai-storyteller-server",
+  "version": "1.0.0",
+  "description": "AI Storyteller backend — Express + Prisma + Claude API",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "db:push": "npx prisma db push",
+    "db:generate": "npx prisma generate",
+    "db:studio": "npx prisma studio"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "@prisma/client": "^6.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "openai": "^6.45.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.9.0"
+  }
+}

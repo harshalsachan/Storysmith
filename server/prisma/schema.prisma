@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Story {
+  id        String     @id @default(uuid())
+  userId    String     @map("user_id")
+  genre     String
+  setting   String?
+  title     String?
+  summary   String?    @db.Text // Rolling summary for context management
+  status    String     @default("active") // active, completed, abandoned
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  turns     Turn[]
+  character Character?
+
+  @@index([userId])
+  @@map("stories")
+}
+
+model Turn {
+  id            String   @id @default(uuid())
+  storyId       String   @map("story_id")
+  sequence      Int
+  playerInput   String   @map("player_input") @db.Text
+  aiNarrative   String   @map("ai_narrative") @db.Text
+  stateSnapshot Json     @map("state_snapshot")
+  createdAt     DateTime @default(now()) @map("created_at")
+  story         Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([storyId, sequence])
+  @@map("turns")
+}
+
+model Character {
+  id        String @id @default(uuid())
+  storyId   String @unique @map("story_id")
+  name      String?
+  stats     Json   // { health: number, mana: number, strength: number, ... }
+  inventory Json   // string[]
+  flags     Json   // { key: boolean, ... }
+  story     Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@map("characters")
+}
