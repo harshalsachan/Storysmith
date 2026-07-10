@@ -2,7 +2,7 @@
  * API utility — handles all HTTP communication with the backend.
  */
 
-const API_BASE = import.meta.env.BACKEND_URL || '/api';
+const API_BASE = import.meta.env.VITE_BACKEND_URL || '/api';
 
 
 /**
