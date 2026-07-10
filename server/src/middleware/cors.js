@@ -4,7 +4,7 @@
 
 import corsLib from 'cors';
 
-const allowedOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+const allowedOrigin = process.env.CLIENT_ORIGIN || 'https://storysmith.pages.dev';
 
 const corsMiddleware = corsLib({
   origin: allowedOrigin,
